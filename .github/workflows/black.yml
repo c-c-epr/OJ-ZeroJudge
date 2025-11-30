@@ -15,6 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
@@ -25,18 +26,17 @@ jobs:
       - name: Install Black
         run: pip install black
 
-      - name: Run Black formatter
+      - name: Run Black
         run: black .
 
       - name: Commit formatted code
         run: |
           if [[ `git status --porcelain` ]]; then
-            echo "Formatting changes detected. Committing..."
             git config --global user.name "github-actions"
             git config --global user.email "actions@github.com"
             git add .
             git commit -m "auto: format Python code via Black"
-            git push
+            git push origin HEAD:main
           else
             echo "No formatting changes found."
           fi
