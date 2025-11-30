@@ -1,6 +1,6 @@
-string=input()
+string = input()
 
-if string==string[::-1]:
-  print("yes")
+if string == string[::-1]:
+    print("yes")
 else:
-  print("no")
+    print("no")
